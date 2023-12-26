@@ -6,6 +6,7 @@ import com.aliyun.oss.common.auth.DefaultCredentialProvider;
 import com.aliyun.oss.model.CannedAccessControlList;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PutObjectResult;
+import io.github.pixee.security.Filenames;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.FileItemStream;
 import org.jeecg.common.util.CommonUtils;
@@ -107,7 +108,7 @@ public class OssBootUtil {
                 ossClient.createBucket(newBucket);
             }
             // 获取文件名
-            String orgName = file.getOriginalFilename();
+            String orgName = Filenames.toSimpleFileName(file.getOriginalFilename());
             if("" == orgName){
               orgName=file.getName();
             }
