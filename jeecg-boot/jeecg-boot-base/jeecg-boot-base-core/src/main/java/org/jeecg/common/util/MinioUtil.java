@@ -1,5 +1,6 @@
 package org.jeecg.common.util;
 
+import io.github.pixee.security.Filenames;
 import io.minio.*;
 import io.minio.http.Method;
 import lombok.extern.slf4j.Slf4j;
@@ -75,7 +76,7 @@ public class MinioUtil {
             //update-end-author:liusq date:20210809 for: 过滤上传文件类型
             InputStream stream = file.getInputStream();
             // 获取文件名
-            String orgName = file.getOriginalFilename();
+            String orgName = Filenames.toSimpleFileName(file.getOriginalFilename());
             if("".equals(orgName)){
                 orgName=file.getName();
             }

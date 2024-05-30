@@ -1,6 +1,7 @@
 package org.jeecg.modules.oss.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.github.pixee.security.Filenames;
 import org.jeecg.common.util.CommonUtils;
 import org.jeecg.common.util.oss.OssBootUtil;
 import org.jeecg.modules.oss.entity.OSSFile;
@@ -16,7 +17,7 @@ public class OSSFileServiceImpl extends ServiceImpl<OSSFileMapper, OSSFile> impl
 
 	@Override
 	public void upload(MultipartFile multipartFile) throws IOException {
-		String fileName = multipartFile.getOriginalFilename();
+		String fileName = Filenames.toSimpleFileName(multipartFile.getOriginalFilename());
 		fileName = CommonUtils.getFileName(fileName);
 		OSSFile ossFile = new OSSFile();
 		ossFile.setFileName(fileName);
