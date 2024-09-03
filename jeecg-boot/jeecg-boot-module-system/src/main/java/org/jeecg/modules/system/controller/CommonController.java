@@ -2,6 +2,7 @@ package org.jeecg.modules.system.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import io.github.pixee.security.Filenames;
 import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.constant.CommonConstant;
@@ -137,7 +138,7 @@ public class CommonController {
             if (!file.exists()) {
                 file.mkdirs();// 创建文件根目录
             }
-            String orgName = mf.getOriginalFilename();// 获取文件名
+            String orgName = Filenames.toSimpleFileName(mf.getOriginalFilename());// 获取文件名
             orgName = CommonUtils.getFileName(orgName);
             if(orgName.indexOf(".")!=-1){
                 fileName = orgName.substring(0, orgName.lastIndexOf(".")) + "_" + System.currentTimeMillis() + orgName.substring(orgName.lastIndexOf("."));

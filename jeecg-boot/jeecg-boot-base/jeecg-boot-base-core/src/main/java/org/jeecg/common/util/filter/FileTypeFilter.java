@@ -1,5 +1,6 @@
 package org.jeecg.common.util.filter;
 
+import io.github.pixee.security.Filenames;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -132,7 +133,7 @@ public class FileTypeFilter {
             }
             // 如果不是上述类型，则判断扩展名
             if (StringUtils.isBlank(fileExtendName)) {
-                String fileName = file.getOriginalFilename();
+                String fileName = Filenames.toSimpleFileName(file.getOriginalFilename());
                 return getFileTypeBySuffix(fileName);
             }
             is.close();

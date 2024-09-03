@@ -4,6 +4,7 @@ import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DataSourcePrope
 import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
+import io.github.pixee.security.Filenames;
 import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.constant.CommonConstant;
 import org.jeecg.common.constant.DataBaseConstant;
@@ -129,7 +130,7 @@ public class CommonUtils {
             if (!file.exists()) {
                 file.mkdirs();// 创建文件根目录
             }
-            String orgName = mf.getOriginalFilename();// 获取文件名
+            String orgName = Filenames.toSimpleFileName(mf.getOriginalFilename());// 获取文件名
             orgName = CommonUtils.getFileName(orgName);
             if(orgName.indexOf(".")!=-1){
                 fileName = orgName.substring(0, orgName.lastIndexOf(".")) + "_" + System.currentTimeMillis() + orgName.substring(orgName.lastIndexOf("."));
