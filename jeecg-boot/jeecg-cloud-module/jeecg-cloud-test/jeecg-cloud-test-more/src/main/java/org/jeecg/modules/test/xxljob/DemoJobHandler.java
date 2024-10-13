@@ -7,6 +7,7 @@ import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.log.XxlJobLogger;
 import com.xxl.job.core.util.ShardingUtil;
+import io.github.pixee.security.BoundedLineReader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import java.io.BufferedInputStream;
@@ -81,7 +82,7 @@ public class DemoJobHandler {
 
             // command log
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bufferedReader, 5_000_000)) != null) {
                 XxlJobLogger.log(line);
             }
 
@@ -186,7 +187,7 @@ public class DemoJobHandler {
             bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
             StringBuilder result = new StringBuilder();
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(bufferedReader, 5_000_000)) != null) {
                 result.append(line);
             }
             String responseMsg = result.toString();
