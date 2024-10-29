@@ -1,5 +1,6 @@
 package org.jeecg.common.util;
 
+import java.nio.file.Files;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -36,7 +37,7 @@ public class PmsUtil {
 
         try {
             //封装目的地
-            BufferedWriter bw = new BufferedWriter(new FileWriter(saveFilePath));
+            BufferedWriter bw = Files.newBufferedWriter(saveFilePath.toPath());
             //遍历集合
             for (String s : msg) {
                 //写数据
