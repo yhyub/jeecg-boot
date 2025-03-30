@@ -1,5 +1,6 @@
 package org.jeecg.modules.system.util;
 
+import java.security.SecureRandom;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -93,7 +94,7 @@ public class RandImageUtil {
 //		graphics.setColor(getRandColor(100, 200)); // ---2
         graphics.drawRect(0, 0, width - 1, height - 1);
 
-        final Random random = new Random();
+        final Random random = new SecureRandom();
         // 随机产生干扰线，使图象中的认证码不易被其它程序探测到
         for (int i = 0; i < count; i++) {
             graphics.setColor(getRandColor(150, 200)); // ---3
@@ -123,7 +124,7 @@ public class RandImageUtil {
     }
 
     private static Color getRandColor(int fc, int bc) { // 取得给定范围随机颜色
-        final Random random = new Random();
+        final Random random = new SecureRandom();
         if (fc > 255) {
             fc = 255;
         }
