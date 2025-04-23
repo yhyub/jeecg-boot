@@ -1,5 +1,6 @@
 package org.jeecg.config.sign.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -114,7 +115,7 @@ public class HttpUtils {
         String str = "";
         StringBuilder wholeStr = new StringBuilder();
         // 一行一行的读取body体里面的内容；
-        while ((str = reader.readLine()) != null) {
+        while ((str = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
             wholeStr.append(str);
         }
         // 转化成json对象

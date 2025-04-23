@@ -1,5 +1,6 @@
 package org.jeecg.config.sign.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
@@ -37,7 +38,7 @@ public class BodyReaderHttpServletRequestWrapper extends HttpServletRequestWrapp
         try (InputStream inputStream = cloneInputStream(request.getInputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")))) {
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
                 sb.append(line);
             }
         } catch (IOException e) {
