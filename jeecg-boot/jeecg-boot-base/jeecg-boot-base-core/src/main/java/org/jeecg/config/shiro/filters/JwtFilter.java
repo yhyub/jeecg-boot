@@ -1,5 +1,6 @@
 package org.jeecg.config.shiro.filters;
 
+import io.github.pixee.security.Newlines;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.jeecg.common.constant.CommonConstant;
@@ -82,9 +83,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         if(allowOrigin){
-            httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
+            httpServletResponse.setHeader("Access-control-Allow-Origin", Newlines.stripAll(httpServletRequest.getHeader("Origin")));
             httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
-            httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
+            httpServletResponse.setHeader("Access-Control-Allow-Headers", Newlines.stripAll(httpServletRequest.getHeader("Access-Control-Request-Headers")));
             //update-begin-author:scott date:20200907 for:issues/I1TAAP 前后端分离，shiro过滤器配置引起的跨域问题
             // 是否允许发送Cookie，默认Cookie不包括在CORS请求之中。设为true时，表示服务器允许Cookie包含在请求中。
             httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
