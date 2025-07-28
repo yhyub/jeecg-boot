@@ -1,5 +1,6 @@
 package org.jeecg.modules.cas.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -57,7 +58,7 @@ public class CASServiceUtil {
         BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         String result = new String();
         String line;
-        while ((line = in.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
             result += line;
         }
         return result;
